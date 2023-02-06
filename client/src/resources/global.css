@@ -2,3 +2,15 @@
 .h-screen{
     height: 100vh;
 }
+
+.w-300{
+    width: 300px;
+}
+
+/* inputs */
+
+input{
+    height: 40px;
+    border: 4px solid gray;
+    width: 100%;
+}
