@@ -1,0 +1,22 @@
+import React from 'react'
+import {Form} from 'antd';
+
+function Register() {
+  return (
+    <div className='h-screen d-flex justify-content-center align-items-center'>
+        <Form layout='vertical'>
+            <Form.Item label='Name'>
+                <input type="text"/>
+            </Form.Item>
+            <Form.Item label='Email'>
+                <input type="text"/>
+            </Form.Item>
+            <Form.Item label='Password'>
+                <input type="text"/>
+            </Form.Item>
+        </Form>
+    </div>
+  )
+}
+
+export default Register
