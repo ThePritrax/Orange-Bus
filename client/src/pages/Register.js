@@ -1,10 +1,20 @@
 import React from "react";
-import { Form } from "antd";
+import { Form, message } from "antd";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Register() {
   const onFinish = async (values) => {
-    console.log(values);
+    try {
+      const response = await axios.post("/api/users/register", values);
+      if (response.success) {
+        message.success(response.data.message);
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
   };
 
   return (
@@ -13,13 +23,13 @@ function Register() {
         <h1 className="text-3xl">OrangeBus - Register</h1>
         <hr></hr>
         <Form layout="vertical" onFinish={onFinish}>
-          <Form.Item label="Name" name="Name">
+          <Form.Item label="Name" name="name">
             <input type="text" />
           </Form.Item>
-          <Form.Item label="Email" name="Email">
+          <Form.Item label="Email" name="email">
             <input type="text" />
           </Form.Item>
-          <Form.Item label="Password" name="Password">
+          <Form.Item label="Password" name="password">
             <input type="password" />
           </Form.Item>
           <div className="d-flex justify-content-between align-items-centerS">
