@@ -7,7 +7,7 @@ function Register() {
   const onFinish = async (values) => {
     try {
       const response = await axios.post("/api/users/register", values);
-      if (response.success) {
+      if (response.data.success) {
         message.success(response.data.message);
       } else {
         message.error(response.data.message);
