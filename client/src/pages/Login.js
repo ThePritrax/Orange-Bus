@@ -1,12 +1,24 @@
-import React from 'react'
-import {Form} from 'antd';
-import {Link} from 'react-router-dom';
+import React from "react";
+import { Form, message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
-
-    const onFinish = async (values) => {
-        console.log(values)
+  const navigate = useNavigate()
+  const onFinish = async (values) => {
+    try {
+      const response = await axios.post("/api/users/login", values);
+      if (response.data.success) {
+        message.success(response.data.message);
+        localStorage.setItem("token", response.data.data);
+        navigate("/");
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      message.error(error.message);
     }
+  };
 
   return (
     <div className='h-screen d-flex justify-content-center align-items-center'>
@@ -14,10 +26,10 @@ function Login() {
             <h1 className='text-3xl'>OrangeBus - Login</h1>
             <hr></hr>
         <Form layout='vertical' onFinish={onFinish}>
-            <Form.Item label='Email' name='Email'>
+            <Form.Item label='Email' name='email'>
                 <input type="text"/>
             </Form.Item>
-            <Form.Item label='Password' name='Password'>
+            <Form.Item label='Password' name='password'>
                 <input type="password"/>
             </Form.Item>
             <div className="d-flex justify-content-between align-items-centerS">
