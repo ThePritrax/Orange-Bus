@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SetUser } from "../redux/usersSlice";
 import { HideLoading, ShowLoading } from "../redux/alertsSlice";
 import axios from "axios";
+import DefaultLayout from "./DefaultLayout";
 
 function ProtectedRoute({children}) {
     const dispatch = useDispatch();
@@ -43,7 +44,7 @@ function ProtectedRoute({children}) {
         }
       }, []);
   return <div> 
-        {loading ? <div>Loading...</div> : <>{children}</>} 
+        {!loading && <DefaultLayout>{children}</DefaultLayout>} 
     </div>
 }
 
