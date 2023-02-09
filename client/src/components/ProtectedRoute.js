@@ -1,9 +1,12 @@
 import { message } from "antd";
-import React, {  useEffect, useState } from 'react'
+import React, {  useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { SetUser } from "../redux/usersSlice";
 import axios from "axios";
 
 function ProtectedRoute({children}) {
+    const dispatch = useDispatch();
     const [ loading, setLoading ] = useState(true);
     const navigate = useNavigate();
     const validateToken = async() => {
@@ -16,6 +19,7 @@ function ProtectedRoute({children}) {
             })
             if(response.data.success){
                 setLoading(false);
+                dispatch(SetUser(response.data.data));
             }
             else{
                 setLoading(false);
