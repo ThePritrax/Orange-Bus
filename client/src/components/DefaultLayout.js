@@ -34,14 +34,15 @@ function DefaultLayout({children}) {
     }
   ];
   const menuToBeRendered = adminMenu
-  
+  const activeRoute = window.location.pathname;
+
   return (
     <div className='layout-parent'>
         <div className='sidebar'>
-          <div className="d-flex flex-column gap-2 justify-content-start">
+          <div className="d-flex flex-column gap-3 justify-content-start">
           {menuToBeRendered.map((item, index) => {
             return (
-              <div className="menu-item">
+              <div className={`${activeRoute===item.path && 'active-menu-item'} menu-item`}>
               <i className={item.icon}></i>
               <span 
                 onClick={() => {
