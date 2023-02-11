@@ -60,6 +60,16 @@ a{
     color: var(--primary);
 }
 
+i{
+    cursor: pointer;
+    font-size: 25px;
+}
+
+h1{
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 /* spinner */
 .spinner-parent{
     position: absolute;

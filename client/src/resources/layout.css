@@ -19,11 +19,25 @@
 
 .sidebar{
     display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 300px;
+    flex-direction: column;
+    justify-content: start;
     background-color: var(--secondary);
     border-radius: 5px;
+    padding: 0 20px;
+}
+
+.logo{
+    color: white;
+    margin-top: 20px;
+}
+
+.role{
+    color: white;
+    font-size: 16px;
+}
+
+.menu{
+    margin-top: 150px;
 }
 
 .menu-item{

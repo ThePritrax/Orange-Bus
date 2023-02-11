@@ -1,67 +1,121 @@
 import React from "react";
-import '../resources/layout.css';
+import "../resources/layout.css";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
-
-function DefaultLayout({children}) {
+function DefaultLayout({ children }) {
   const navigate = useNavigate();
-  const userMenu = [];
+  const [collapsed, setCollapsed] = React.useState(true);
+  const { user } = useSelector((state) => state.users);
+  const userMenu = [
+    {
+      name: "Home",
+      path: "/",
+      icon: "ri-home-2-line",
+    },
+    {
+      name: "Bookings",
+      path: "/bookings",
+      icon: "ri-file-list-line",
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+      icon: "ri-user-line",
+    },
+    {
+      name: "Logout",
+      path: "/logout",
+      icon: "ri-logout-box-line",
+    },
+  ];
   const adminMenu = [
     {
-      name: 'Home',
-      path: '/admin',
-      icon: 'ri-home-2-line',
+      name: "Home",
+      path: "/admin",
+      icon: "ri-home-2-line",
     },
     {
-      name: 'Buses',
-      path: '/admin/buses',
-      icon: 'ri-bus-line',
+      name: "Buses",
+      path: "/admin/buses",
+      icon: "ri-bus-line",
     },
     {
-      name: 'Users',
-      path: '/admin/users',
-      icon: 'ri-user-line',
+      name: "Users",
+      path: "/admin/users",
+      icon: "ri-user-line",
     },
     {
-      name: 'Bookings',
-      path: '/admin/bookings',
-      icon: 'ri-file-list-line',
+      name: "Bookings",
+      path: "/admin/bookings",
+      icon: "ri-file-list-line",
     },
     {
-      name: 'Logout',
-      path: 'logout',
-      icon: 'ri-logout-box-line',
-    }
+      name: "Logout",
+      path: "/logout",
+      icon: "ri-logout-box-line",
+    },
   ];
-  const menuToBeRendered = adminMenu
+  const menuToBeRendered = user?.isAdmin ? adminMenu : userMenu;
   const activeRoute = window.location.pathname;
 
   return (
-    <div className='layout-parent'>
-        <div className='sidebar'>
-          <div className="d-flex flex-column gap-3 justify-content-start">
+    <div className="layout-parent">
+      <div className="sidebar">
+        <div className="sidebar-header">
+          <h1 className="logo">OB<hr/></h1>
+          <h1 className="role">{user?.name}<br/>{user?.isAdmin ? 'Admin' : 'User'}</h1>
+        </div>
+        <div className="d-flex flex-column gap-3 justify-content-start menu">
           {menuToBeRendered.map((item, index) => {
             return (
-              <div className={`${activeRoute===item.path && 'active-menu-item'} menu-item`}>
-              <i className={item.icon}></i>
-              <span 
-                onClick={() => {
-                  navigate(item.path);
-              }}>{item.name}
-              </span>
-            </div>
+              <div
+                className={`${
+                  activeRoute === item.path && "active-menu-item"
+                } menu-item`}
+              >
+                <i className={item.icon}></i>
+                {!collapsed && (
+                  <span
+                    onClick={() => {
+                      if (item.path === "/logout") {
+                        localStorage.removeItem("token");
+                        navigate("/login");
+                      } else {
+                        navigate(item.path);
+                      }
+                    }}
+                  >
+                    {item.name}
+                  </span>
+                )}
+              </div>
             );
           })}
-          </div>
         </div>
-        <div className='body'>
-          <div className='header'>
-            header
-          </div>
-          <div className='content'>{children}</div>
+      </div>
+      <div className="body">
+        <div className="header">
+          {collapsed ? (
+            <i
+              class="ri-menu-2-line"
+              onClick={() => {
+                setCollapsed(!collapsed);
+              }}
+            ></i>
+          ) : (
+            <i
+              class="ri-close-line"
+              onClick={() => {
+                setCollapsed(!collapsed);
+              }}
+            ></i>
+          )}
         </div>
+        <div className="content">{children}</div>
+      </div>
     </div>
   );
 }
 
-export default DefaultLayout
+export default DefaultLayout;
