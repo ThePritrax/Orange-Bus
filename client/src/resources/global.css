@@ -21,19 +21,19 @@ input{
 }
 
 /* text sizes */
-.text-4xl{
+.text-4xl{ /* 2xl */
     font-size: 30px;
 }
 
-.text-3xl{
+.text-3xl{ /* xl */
     font-size: 25px;
 }
 
-.text-2xl{
+.text-2xl{ /* lg */
     font-size: 20px;
 }
 
-.text-xl{
+.text-xl{ /* md */
     font-size: 18px
 }
 
