@@ -1,8 +1,9 @@
 import React from "react";
-import { Modal, Form, Row, Col, message } from "antd";
-import { useDispatch } from "react-redux";
+import { Col, Form, message, Modal, Row } from "antd";
 import { axiosInstance } from "../helpers/axiosInstance";
-import { ShowLoading, HideLoading } from "../redux/alertsSlice";
+import { useDispatch } from "react-redux";
+import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+import moment from "moment";
 
 function BusForm({
   showBusForm,
@@ -13,6 +14,7 @@ function BusForm({
   setSelectedBus,
 }) {
   const dispatch = useDispatch();
+
   const onFinish = async (values) => {
     try {
       dispatch(ShowLoading());
@@ -33,6 +35,7 @@ function BusForm({
       getData();
       setShowBusForm(false);
       setSelectedBus(null);
+
       dispatch(HideLoading());
     } catch (error) {
       message.error(error.message);
@@ -43,10 +46,10 @@ function BusForm({
     <Modal
       width={800}
       title={type === "add" ? "Add Bus" : "Update Bus"}
-      open={showBusForm}
+      visible={showBusForm}
       onCancel={() => {
-        setShowBusForm(false);
         setSelectedBus(null);
+        setShowBusForm(false);
       }}
       footer={false}
     >
@@ -86,18 +89,21 @@ function BusForm({
           </Col>
           <Col lg={8} xs={24}>
             <Form.Item label="Departure" name="departure">
-              <input type="text" />
+              <input type="time" />
             </Form.Item>
           </Col>
           <Col lg={8} xs={24}>
             <Form.Item label="Arrival" name="arrival">
-              <input type="text" />
+              <input type="time" />
             </Form.Item>
           </Col>
 
           <Col lg={12} xs={24}>
             <Form.Item label="Type" name="type">
-              <input type="text" />
+              <select name="" id="">
+                <option value="AC">AC</option>
+                <option value="Non-AC">Non-AC</option>
+              </select>
             </Form.Item>
           </Col>
           <Col lg={12} xs={24}>
@@ -105,7 +111,18 @@ function BusForm({
               <input type="text" />
             </Form.Item>
           </Col>
+
+          <Col lg={12} xs={24}>
+            <Form.Item label="Status" name="status">
+              <select name="" id="">
+                <option value="Yet To Start">Yet To Start</option>
+                <option value="Running">Running</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </Form.Item>
+          </Col>
         </Row>
+
         <div className="d-flex justify-content-end">
           <button className="primary-btn" type="submit">
             Save

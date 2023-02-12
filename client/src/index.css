@@ -1,13 +1,13 @@
 :root {
-    --primary:#A66CFF ;
-    --secondary:#FF731D;
+    --primary:hsl(270, 100%, 50%) ;
+    --secondary:#ff7b00 ;
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap');
 
-/* applied to all elements in the app */
-*{
-    font-family: 'Raleway', sans-serif;
-    font-size: 16px; /* default font size */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap");
+
+* {
+  font-family: "Montserrat", sans-serif !important;
+  font-size: 16px;
 }
 

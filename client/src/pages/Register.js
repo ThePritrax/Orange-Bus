@@ -1,11 +1,13 @@
 import React from "react";
 import { Form, message } from "antd";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { HideLoading, ShowLoading } from "../redux/alertsSlice";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { ShowLoading, HideLoading } from "../redux/alertsSlice";
+import '../resourses/auth.css'
 
 function Register() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const onFinish = async (values) => {
     try {
@@ -14,6 +16,7 @@ function Register() {
       dispatch(HideLoading());
       if (response.data.success) {
         message.success(response.data.message);
+        navigate("/login");
       } else {
         message.error(response.data.message);
       }
@@ -24,21 +27,21 @@ function Register() {
   };
 
   return (
-    <div className="h-screen d-flex justify-content-center align-items-center">
+    <div className="h-screen d-flex justify-content-center align-items-center auth">
       <div className="w-400 card p-3">
-        <h1 className="text-3xl">OrangeBus - Register</h1>
-        <hr></hr>
+        <h1 className="text-lg">SheyBus - Register</h1>
+        <hr />
         <Form layout="vertical" onFinish={onFinish}>
           <Form.Item label="Name" name="name">
             <input type="text" />
           </Form.Item>
           <Form.Item label="Email" name="email">
-            <input type="email" />
+            <input type="text" />
           </Form.Item>
           <Form.Item label="Password" name="password">
             <input type="password" />
           </Form.Item>
-          <div className="d-flex justify-content-between align-items-centerS">
+          <div className="d-flex justify-content-between align-items-center my-3">
             <Link to="/login">Click Here To Login</Link>
             <button className="secondary-btn" type="submit">
               Register
@@ -50,4 +53,4 @@ function Register() {
   );
 }
 
-export default Register
+export default Register;

@@ -16,4 +16,4 @@ function PublicRoute({children}) {
   )
 }
 
-export default PublicRoute;
+export default PublicRoute

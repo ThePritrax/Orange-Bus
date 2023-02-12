@@ -1,17 +1,18 @@
-import React, { useEffect } from "react";
 import { message, Table } from "antd";
-import PageTitle from "../../components/PageTitle";
-import BusForm from "../../components/BusForm";
+import axios from "axios";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import BusForm from "../../components/BusForm";
+import PageTitle from "../../components/PageTitle";
 import { axiosInstance } from "../../helpers/axiosInstance";
 import { HideLoading, ShowLoading } from "../../redux/alertsSlice";
 
 function AdminBuses() {
   const dispatch = useDispatch();
-  const [showBusForm, setShowBusForm] = React.useState(false);
-  const [buses, setBuses] = React.useState([]);
-  const [selectedBus, setSelectedBus] = React.useState(null);
-
+  const [showBusForm, setShowBusForm] = useState(false);
+  const [buses, setBuses] = useState([]);
+  const [selectedBus, setSelectedBus] = useState(null);
   const getBuses = async () => {
     try {
       dispatch(ShowLoading());
@@ -47,7 +48,6 @@ function AdminBuses() {
     }
   };
 
-
   const columns = [
     {
       title: "Name",
@@ -79,16 +79,16 @@ function AdminBuses() {
       render: (action, record) => (
         <div className="d-flex gap-3">
           <i
+            class="ri-delete-bin-line"
+            onClick={() => {
+              deleteBus(record._id);
+            }}
+          ></i>
+          <i
             class="ri-pencil-line"
             onClick={() => {
               setSelectedBus(record);
               setShowBusForm(true);
-            }}
-          ></i>
-          <i
-            class="ri-delete-bin-2-line"
-            onClick={() => {
-              deleteBus(record._id);
             }}
           ></i>
         </div>
@@ -99,10 +99,9 @@ function AdminBuses() {
   useEffect(() => {
     getBuses();
   }, []);
-
   return (
     <div>
-      <div className="d-flex justify-content-between">
+      <div className="d-flex justify-content-between my-2">
         <PageTitle title="Buses" />
         <button className="primary-btn" onClick={() => setShowBusForm(true)}>
           Add Bus
