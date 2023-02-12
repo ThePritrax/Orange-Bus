@@ -89,7 +89,7 @@ function BusForm({ showBusForm, setShowBusForm, type = "add" }) {
             </Form.Item>
           </Col>
         </Row>
-        <div d-flex justify-content-end>
+        <div className="d-flex justify-content-end">
           <button className="primary-btn" type="submit">
             Save
           </button>
