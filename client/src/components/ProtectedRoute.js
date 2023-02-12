@@ -1,5 +1,5 @@
 import { message } from "antd";
-import React, {  useEffect, useState } from "react";
+import React, {  useEffect  } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { SetUser } from "../redux/usersSlice";
@@ -9,7 +9,7 @@ import DefaultLayout from "./DefaultLayout";
 
 function ProtectedRoute({children}) {
     const dispatch = useDispatch();
-    const { loading } = useSelector((state) => state.alerts);
+    const { user } = useSelector(state => state.users);
     const navigate = useNavigate();
     const validateToken = async() => {
         try {
@@ -44,7 +44,7 @@ function ProtectedRoute({children}) {
         }
       }, []);
   return <div> 
-        {!loading && <DefaultLayout>{children}</DefaultLayout>} 
+        {user && <DefaultLayout>{children}</DefaultLayout>} 
     </div>
 }
 
