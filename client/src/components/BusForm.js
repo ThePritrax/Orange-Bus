@@ -42,9 +42,12 @@ function BusForm({
   return (
     <Modal
       width={800}
-      title="Add Bus"
+      title={type === "add" ? "Add Bus" : "Update Bus"}
       open={showBusForm}
-      onCancel={() => setShowBusForm(false)}
+      onCancel={() => {
+        setShowBusForm(false);
+        setSelectedBus(null);
+      }}
       footer={false}
     >
       <Form layout="vertical" onFinish={onFinish} initialValues={selectedBus}>

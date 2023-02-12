@@ -28,6 +28,26 @@ function AdminBuses() {
     }
   };
 
+  const deleteBus = async (id) => {
+    try {
+      dispatch(ShowLoading());
+      const response = await axiosInstance.post("/api/buses/delete-bus", {
+        _id: id,
+      });
+      dispatch(HideLoading());
+      if (response.data.success) {
+        message.success(response.data.message);
+        getBuses();
+      } else {
+        message.error(response.data.message);
+      }
+    } catch (error) {
+      dispatch(HideLoading());
+      message.error(error.message);
+    }
+  };
+
+
   const columns = [
     {
       title: "Name",
@@ -58,13 +78,21 @@ function AdminBuses() {
       dataIndex: "action",
       render: (action, record) => (
         <div className="d-flex gap-3">
-          <i class="ri-pencil-line" onClick={() => {
-            setSelectedBus(record);
-            setShowBusForm(true);
-          }}></i>
-          <i class="ri-delete-bin-2-line"></i>
+          <i
+            class="ri-pencil-line"
+            onClick={() => {
+              setSelectedBus(record);
+              setShowBusForm(true);
+            }}
+          ></i>
+          <i
+            class="ri-delete-bin-2-line"
+            onClick={() => {
+              deleteBus(record._id);
+            }}
+          ></i>
         </div>
-      )
+      ),
     },
   ];
 
@@ -89,7 +117,7 @@ function AdminBuses() {
           setShowBusForm={setShowBusForm}
           type={selectedBus ? "edit" : "add"}
           selectedBus={selectedBus}
-          setSelectedBus = {setSelectedBus}
+          setSelectedBus={setSelectedBus}
           getData={getBuses}
         />
       )}

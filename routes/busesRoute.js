@@ -37,18 +37,32 @@ router.post("/update-bus", authMiddleware, async (req, res) => {
   }
 });
 
+// delete-bus
+
+router.post("/delete-bus", authMiddleware, async (req, res) => {
+  try {
+    await Bus.findByIdAndDelete(req.body._id);
+    return res.status(200).send({
+      success: true,
+      message: "Bus deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
+  }
+});
+
 // get-all-buses
 router.post("/get-all-buses", authMiddleware, async (req, res) => {
-    try {
-      const buses = await Bus.find(req.body);
-      return res.status(200).send({
-        success: true,
-        message: "Buses fetched successfully",
-        data: buses,
-      });
-    } catch (error) {
-      res.status(500).send({ success: false, message: error.message });
-    }
-  });
+  try {
+    const buses = await Bus.find(req.body);
+    return res.status(200).send({
+      success: true,
+      message: "Buses fetched successfully",
+      data: buses,
+    });
+  } catch (error) {
+    res.status(500).send({ success: false, message: error.message });
+  }
+});
 
 module.exports = router;
