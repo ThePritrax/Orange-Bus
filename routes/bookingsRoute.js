@@ -4,6 +4,7 @@ const Booking = require("../models/bookingsModel");
 const Bus = require("../models/busModel");
 const stripe = require("stripe")(process.env.stripe_key);
 const { v4: uuidv4 } = require('uuid');
+
 // book a seat
 
 router.post("/book-seat", authMiddleware, async (req, res) => {

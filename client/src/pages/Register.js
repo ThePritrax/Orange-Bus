@@ -29,7 +29,7 @@ function Register() {
   return (
     <div className="h-screen d-flex justify-content-center align-items-center auth">
       <div className="w-400 card p-3">
-        <h1 className="text-lg">SheyBus - Register</h1>
+        <h1 className="text-lg">OrangeBus - Register</h1>
         <hr />
         <Form layout="vertical" onFinish={onFinish}>
           <Form.Item label="Name" name="name">

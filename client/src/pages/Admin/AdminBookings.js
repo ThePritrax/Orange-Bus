@@ -78,7 +78,7 @@ function Bookings() {
               setShowPrintModal(true);
             }}
           >
-            Print Ticket
+            Ticket
           </p>
         </div>
       ),
